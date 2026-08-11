@@ -347,6 +347,40 @@ body{
     <button class="button" onclick="sendComplaintWhatsApp()">
       💬 WhatsApp വഴി അയയ്ക്കുക
     </button>
+  <!-- രണ്ടാമത്തെ ബട്ടൺ അവസാനിക്കുന്നത് ഇവിടെയാണ് -->
+  <button type="button">WhatsApp വഴി അയക്കുക</button>
+
+  <!-- 🛑 ഇതിന് തൊട്ടു താഴെയായി പുതിയ കോഡ് പേസ്റ്റ് ചെയ്യുക 🛑 -->
+
+  <div style="background: #ffffff; padding: 15px; margin-top: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+    <h3 style="color: #075e54; margin-top: 0; font-size: 18px;">🔍 പരാതിയുടെ സ്റ്റാറ്റസ് അറിയാൻ</h3>
+    <hr style="border: 0.5px solid #eee; margin-bottom: 15px;">
+    
+    <input type="text" id="complaintId" placeholder="Complaint ID / Reference Number" style="width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+    
+    <button type="button" onclick="checkStatus()" style="width: 100%; background: #075e54; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+      Check Status
+    </button>
+
+    <div id="statusResult" style="margin-top: 15px; font-weight: bold; font-size: 14px;"></div>
+  </div>
+
+  <script>
+  function checkStatus() {
+    var id = document.getElementById('complaintId').value;
+    var result = document.getElementById('statusResult');
+    
+    if (id.trim() === "") {
+      result.style.color = "red";
+      result.innerHTML = "ദയവായി Complaint ID നൽകുക!";
+    } else {
+      result.style.color = "#075e54";
+      result.innerHTML = "നിങ്ങളുടെ പരാതി ലഭിച്ചിട്ടുണ്ട്. പരിശോധിച്ചു വരുന്നു... (ID: " + id + ")";
+    }
+  }
+  </script>
+
+    
   </div>
 
   <button class="back" onclick="hideSections()">← തിരികെ</button>
