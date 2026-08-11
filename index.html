@@ -1419,6 +1419,35 @@ window.sendComplaintWhatsApp = function(){
 
 };
 
+  // DELETE COMPLAINT
+window.deleteComplaint = async function(id){
+
+  if(!auth.currentUser){
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+    return;
+  }
+
+  if(!confirm("ഈ പരാതി സ്ഥിരമായി Delete ചെയ്യണോ?")){
+    return;
+  }
+
+  try {
+
+    await deleteDoc(doc(db, "complaints", id));
+
+    alert("പരാതി Delete ചെയ്തു ✅");
+
+    displayComplaints();
+
+  } catch(error) {
+
+    console.error(error);
+    alert("പരാതി Delete ചെയ്യാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+  
 </script>
 
 </body>
