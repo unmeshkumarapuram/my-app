@@ -347,6 +347,10 @@ body{
     <button class="button" onclick="sendComplaintWhatsApp()">
       💬 WhatsApp വഴി അയയ്ക്കുക
     </button>
+    <button class="button" type="button" onclick="if(navigator.share){navigator.share({title:'കുമാരപുരം പഞ്ചായത്ത് ആപ്പ്',text:'കുമാരപുരം പഞ്ചായത്തിലെ ജനങ്ങളുമായി നേരിട്ട് ബന്ധപ്പെടുന്നതിനുള്ള ആപ്പ്',url:window.location.href});}else{alert('ഈ ഫോണിൽ Share സൗകര്യം ലഭ്യമല്ല.');}">
+📤 ആപ്പ് ഷെയർ ചെയ്യുക
+    </button>
+    
   <!-- രണ്ടാമത്തെ ബട്ടൺ അവസാനിക്കുന്നത് ഇവിടെയാണ് -->
   <button type="button">WhatsApp വഴി അയക്കുക</button>
 
