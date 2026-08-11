@@ -6,6 +6,9 @@
 
 <title>Unmesh Kumarapuram</title>
 
+<link rel="manifest" href="manifes.json">
+<link rel="icon" type="image/png" href="logo.png">
+
 <style>
 
 @media (max-width: 600px) {
@@ -353,26 +356,28 @@ body{
   <section id="workers" class="section">
     <h2>👥 പ്രവർത്തകർ</h2>
 
-    <div class="info">
-      <strong>പ്രധാന പ്രവർത്തകൻ</strong>
-      <p>പേര് ഇവിടെ ചേർക്കാം.</p>
-    </div>
+    <div id="adminWorkerButtons" style="display:none; margin-bottom:15px;">
 
-    <div class="info">
-      <strong>പ്രവർത്തകർ</strong>
-      <p>മറ്റുള്ളവരുടെ പേരുകളും വിവരങ്ങളും ഇവിടെ ചേർക്കാം.</p>
-    </div>
+  <button class="button" onclick="addWorker()">
+    ➕ പ്രവർത്തകനെ ചേർക്കുക
+  </button>
+
+</div>
+
+<div id="workerList">
+  പ്രവർത്തകർ ലോഡ് ചെയ്യുന്നു...
+</div>
 
     <button class="back" onclick="hideSections()">← തിരികെ</button>
   </section>
 
-  <section id="contact" class="section">
+   <section id="contact" class="section">
     <h2>📞 ബന്ധപ്പെടുക</h2>
 
     <div class="info">
       <strong>ഫോൺ</strong>
-      <p>+91 99999 99999</p>
-      <a class="button" href="tel:+919999999999">
+      <p>+91 8137097710</p>
+      <a class="button" href="tel:+918137097710">
         📞 ഇപ്പോൾ വിളിക്കുക
       </a>
     </div>
@@ -384,6 +389,7 @@ body{
 
     <button class="back" onclick="hideSections()">← തിരികെ</button>
   </section>
+
 
   <section id="about" class="section">
     <h2>ℹ️ ഞങ്ങളെക്കുറിച്ച്</h2>
@@ -397,6 +403,28 @@ body{
 
     <button class="back" onclick="hideSections()">← തിരികെ</button>
   </section>
+
+<section id="adminComplaints" class="section">
+
+  <h2>📋 ലഭിച്ച പരാതികൾ</h2>
+
+  <div id="complaintList">
+    പരാതികൾ ലോഡ് ചെയ്യുന്നു...
+  </div>
+
+  <button class="back" onclick="displayComplaints()">
+    🔄 Refresh
+  </button>
+
+  <button class="back" onclick="adminLogout()">
+    🚪 Logout
+  </button>
+
+  <button class="back" onclick="hideSections()">
+    ← തിരികെ
+  </button>
+
+</section>
 
 </main>
 
@@ -464,8 +492,9 @@ window.adminLogin = async function(){
 
     alert("Admin Login വിജയിച്ചു ✅");
 
-    hideSections();
-    displayNotices();
+hideSections();
+showSection("adminComplaints");
+displayComplaints();
 
   } catch(error) {
 
@@ -1012,6 +1041,23 @@ onAuthStateChanged(auth, function(user){
 
   }
 
+const workerButtons =
+  document.getElementById("adminWorkerButtons");
+
+if(workerButtons){
+
+  if(user){
+
+    workerButtons.style.display = "block";
+
+  } else {
+
+    workerButtons.style.display = "none";
+
+  }
+
+}
+
 });
 
 
@@ -1019,8 +1065,266 @@ window.addEventListener("load", function(){
 
   displayNotices();
   displayEvents();
-
+  displayWorkers();
 });
+
+// SHOW COMPLAINTS FOR ADMIN
+window.displayComplaints = async function(){
+
+  if(!auth.currentUser){
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+    return;
+  }
+
+  const box = document.getElementById("complaintList");
+
+  if(!box) return;
+
+  box.innerHTML = "പരാതികൾ ലോഡ് ചെയ്യുന്നു...";
+
+  try {
+
+    const querySnapshot =
+      await getDocs(collection(db, "complaints"));
+
+    box.innerHTML = "";
+
+    if(querySnapshot.empty){
+
+      box.innerHTML =
+        '<div class="info">ഇപ്പോൾ പുതിയ പരാതികളില്ല.</div>';
+
+      return;
+    }
+
+    querySnapshot.forEach(function(document){
+
+      const complaint = document.data();
+
+      box.innerHTML +=
+
+        '<div class="info">' +
+
+        '<strong>🆔 ' +
+        (complaint.complaintId || document.id) +
+        '</strong>' +
+
+        '<p>👤 <strong>പേര്:</strong> ' +
+        (complaint.name || "") +
+        '</p>' +
+
+        '<p>📱 <strong>മൊബൈൽ:</strong> ' +
+        (complaint.phone || "") +
+        '</p>' +
+
+        '<p>📋 <strong>പരാതി:</strong><br>' +
+        (complaint.message || "") +
+        '</p>' +
+
+        '<p>📌 <strong>Status:</strong> ' +
+        (complaint.status || "പരിശോധനയിൽ") +
+        '</p>' +
+
+'<button class="button" onclick="updateComplaintStatus(\'' +
+document.id +
+'\')">' +
+'📌 Status മാറ്റുക' +
+'</button>' +
+
+'<button class="button" onclick="deleteComplaint(\'' +
+document.id +
+'\')" style="background:#dc2626;margin-top:8px;">' +
+'🗑️ പരാതി Delete ചെയ്യുക' +
+'</button>' +
+
+        '</div>';
+
+    });
+
+  } catch(error) {
+
+    console.error(error);
+
+    box.innerHTML =
+      '<div class="info">പരാതികൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.</div>';
+
+  }
+
+};
+
+// DELETE COMPLAINT
+window.deleteComplaint = async function(id){
+
+  if(!auth.currentUser){
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+    return;
+  }
+
+  if(!confirm("ഈ പരാതി Delete ചെയ്യണോ?")){
+    return;
+  }
+
+  try {
+
+    await deleteDoc(doc(db, "complaints", id));
+
+    alert("പരാതി വിജയകരമായി Delete ചെയ്തു.");
+
+    window.displayComplaints();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("പരാതി Delete ചെയ്യാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+// UPDATE COMPLAINT STATUS
+window.updateComplaintStatus = async function(id){
+
+  if(!auth.currentUser){
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+    return;
+  }
+
+  const status = prompt(
+    "Status നൽകുക:\n\n" +
+    "1. പരിശോധനയിൽ\n" +
+    "2. നടപടി സ്വീകരിച്ചു\n" +
+    "3. പരിഹരിച്ചു",
+    "പരിശോധനയിൽ"
+  );
+
+  if(!status) return;
+
+  try {
+
+    await updateDoc(
+      doc(db, "complaints", id),
+      {
+        status: status
+      }
+    );
+
+    alert("Status മാറ്റി ✅");
+
+    displayComplaints();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("Status മാറ്റാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+// SHOW WORKERS
+window.displayWorkers = async function(){
+
+  const box = document.getElementById("workerList");
+
+  if(!box) return;
+
+  box.innerHTML = "പ്രവർത്തകർ ലോഡ് ചെയ്യുന്നു...";
+
+  try {
+
+    const querySnapshot =
+      await getDocs(collection(db, "workers"));
+
+    box.innerHTML = "";
+
+    if(querySnapshot.empty){
+
+      box.innerHTML =
+        '<div class="info">ഇപ്പോൾ പ്രവർത്തകരുടെ വിവരങ്ങളില്ല.</div>';
+
+      return;
+    }
+
+    querySnapshot.forEach(function(document){
+
+      const worker = document.data();
+
+      box.innerHTML +=
+
+        '<div class="info">' +
+
+        '<strong>👤 ' +
+        (worker.name || "") +
+        '</strong>' +
+
+        '<p>🏷️ <strong>ചുമതല:</strong> ' +
+        (worker.role || "") +
+        '</p>' +
+
+        '<p>📱 <strong>മൊബൈൽ:</strong> ' +
+        (worker.phone || "") +
+        '</p>' +
+
+        '</div>';
+
+    });
+
+  } catch(error) {
+
+    console.error(error);
+
+    box.innerHTML =
+      '<div class="info">പ്രവർത്തകരുടെ വിവരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.</div>';
+
+  }
+
+};
+
+// ADD WORKER
+window.addWorker = async function(){
+
+  if(!auth.currentUser){
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+    return;
+  }
+
+  const name = prompt("പ്രവർത്തകന്റെ പേര്:");
+  if(!name) return;
+
+  const role = prompt("ചുമതല / സ്ഥാനം:");
+  if(!role) return;
+
+  const phone = prompt("മൊബൈൽ നമ്പർ:");
+  if(!phone) return;
+
+  try {
+
+    await addDoc(
+      collection(db, "workers"),
+      {
+        name: name,
+        role: role,
+        phone: phone,
+        createdAt: new Date()
+      }
+    );
+
+    alert("പ്രവർത്തകനെ വിജയകരമായി ചേർത്തു ✅");
+
+    displayWorkers();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("പ്രവർത്തകനെ ചേർക്കാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
 // COMPLAINT SUBMIT
 window.submitComplaint = async function(){
 
@@ -1096,7 +1400,7 @@ window.sendComplaintWhatsApp = function(){
     return;
   }
 
-  const whatsappNumber = "919999999999";
+  const whatsappNumber = "918137097710";
 
   const text =
     "📝 പരാതി / അപേക്ഷ\n\n" +
