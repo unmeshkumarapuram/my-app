@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unmesh Kumarapuram</title>
+
+<style>
+
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .grid {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7f7;
+  color:#222;
+}
+
+.header{
+  background:#075e54;
+  color:white;
+  text-align:center;
+  padding:28px 15px;
+}
+
+.header h1{
+  margin:0;
+  font-size:32px;
+}
+
+.header p{
+  margin:12px 0 0;
+  font-size:21px;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:25px 15px;
+}
+
+.welcome{
+  background:white;
+  border-radius:25px;
+  padding:30px 20px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  margin-bottom:25px;
+}
+
+.welcome h2{
+  margin:0 0 20px;
+  font-size:34px;
+}
+
+.welcome p{
+  font-size:21px;
+  line-height:1.7;
+  margin:0;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.card{
+  background:white;
+  border-radius:22px;
+  padding:25px 15px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.card:active{
+  transform:scale(.97);
+}
+
+.icon{
+  display:block;
+  font-size:50px;
+  margin-bottom:15px;
+}
+
+.card h3{
+  margin:0;
+  font-size:22px;
+}
+
+.section{
+  display:none;
+  background:white;
+  border-radius:22px;
+  padding:25px 20px;
+  margin-top:25px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.section.active{
+  display:block;
+}
+
+.section h2{
+  color:#075e54;
+  text-align:center;
+  margin-top:0;
+}
+
+.section p{
+  font-size:18px;
+  line-height:1.7;
+}
+
+.info{
+  background:#f1f8f6;
+  padding:15px;
+  border-radius:15px;
+  margin:12px 0;
+}
+
+.button{
+  display:inline-block;
+  background:#075e54;
+  color:white;
+  text-decoration:none;
+  padding:12px 20px;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:17px;
+}
+
+.back{
+  width:100%;
+  border:0;
+  background:#075e54;
+  color:white;
+  padding:14px;
+  border-radius:10px;
+  font-size:17px;
+  margin-top:15px;
+}
+
+.footer{
+  text-align:center;
+  padding:30px 15px;
+  color:#666;
+  font-size:15px;
+}
+
+@media(max-width:600px){
+  .header h1{
+    font-size:28px;
+  }
+
+  .header p{
+    font-size:19px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+
+  .card{
+    padding:22px 10px;
+  }
+
+  .icon{
+    font-size:42px;
+  }
+
+  .card h3{
+    font-size:18px;
+  }
+
+  .welcome h2{
+    font-size:30px;
+  }
+
+  .welcome p{
+    font-size:19px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <h1>Unmesh Kumarapuram</h1>
+  <p>കുമാരപുരം പഞ്ചായത്തിന്റെ ജനങ്ങളുമായി നേരിട്ട് ബന്ധപ്പെടുന്നതിനുള്ള ആപ്പ്</p>
+</header>
+
+<main class="container">
+  
+  <div id="adminLogin" class="section">
+
+  <h2>🔐 Admin Login</h2>
+
+  <input
+    id="adminEmail"
+    type="email"
+    placeholder="Email"
+    style="width:100%;padding:14px;margin:8px 0;border:1px solid #ddd;border-radius:10px;"
+  >
+
+  <input
+    id="adminPassword"
+    type="password"
+    placeholder="Password"
+    style="width:100%;padding:14px;margin:8px 0;border:1px solid #ddd;border-radius:10px;"
+  >
+
+  <button class="back" onclick="adminLogin()">
+    🔐 Login
+  </button>
+
+  <button class="back" onclick="hideSections()">
+    ← തിരികെ
+  </button>
+
+</div>
+
+  <section class="welcome">
+    <h2>സ്വാഗതം</h2>
+    <p>
+      കുമാരപുരം പഞ്ചായത്തിലെ ജനങ്ങളുമായി നേരിട്ട്
+      ബന്ധപ്പെടുന്നതിനുള്ള ആപ്പ്
+    </p>
+  </section>
+
+  <div class="grid">
+
+    <div class="card" onclick="showSection('notice')">
+      <span class="icon">📢</span>
+      <h3>അറിയിപ്പുകൾ</h3>
+    </div>
+
+    <div class="card" onclick="showSection('events')">
+      <span class="icon">📅</span>
+      <h3>പരിപാടികൾ</h3>
+    </div>
+
+    <div class="card" onclick="showSection('complaint')">
+      <span class="icon">📝</span>
+      <h3>പരാതി / അപേക്ഷ</h3>
+    </div>
+
+    <div class="card" onclick="showSection('workers')">
+      <span class="icon">👥</span>
+      <h3>പ്രവർത്തകർ</h3>
+    </div>
+
+    <div class="card" onclick="showSection('contact')">
+      <span class="icon">📞</span>
+      <h3>ബന്ധപ്പെടുക</h3>
+    </div>
+
+    <div class="card" onclick="showSection('about')">
+      <span class="icon">ℹ️</span>
+      <h3>ഞങ്ങളെക്കുറിച്ച്</h3>
+    </div>
+
+<div class="card" onclick="showSection('adminLogin')">
+  <span class="icon">🔐</span>
+  <h3>Admin Login</h3>
+</div>
+  </div>
+
+  <section id="notice" class="section">
+    <h2>📢 അറിയിപ്പുകൾ</h2>
+<button class="back" onclick="addNotice()">
+  ➕ പുതിയ അറിയിപ്പ് ചേർക്കുക
+</button>
+    <div class="info">
+      <strong>പ്രധാന അറിയിപ്പ്</strong>
+      <p>ജനങ്ങൾക്ക് ആവശ്യമായ പ്രധാന അറിയിപ്പുകൾ ഇവിടെ ചേർക്കാം.</p>
+    </div>
+    
+    <div id="noticeList"></div>
+
+    <button class="back" onclick="hideSections()">← തിരികെ</button>
+  </section>
+<section id="events" class="section">
+
+  <h2>📅 പരിപാടികൾ</h2>
+
+  <div id="adminEventButtons" style="display:none; margin-bottom:15px;">
+
+    <button class="button" onclick="addEvent()">
+      ➕ പരിപാടി ചേർക്കുക
+    </button>
+
+  </div>
+
+  <div id="eventList">
+    പരിപാടികൾ ലോഡ് ചെയ്യുന്നു...
+  </div>
+
+  <button class="back" onclick="hideSections()">
+    ← തിരികെ
+  </button>
+
+</section>
+
+ <section id="complaint" class="section">
+  <h2>📝 പരാതി / അപേക്ഷ</h2>
+
+  <div class="info">
+    <label>👤 പേര്</label>
+    <input type="text" id="complaintName" placeholder="നിങ്ങളുടെ പേര്">
+
+    <label>📱 മൊബൈൽ നമ്പർ</label>
+    <input type="tel" id="complaintPhone" placeholder="മൊബൈൽ നമ്പർ">
+
+    <label>📝 പരാതി / അപേക്ഷ</label>
+    <textarea id="complaintMessage" rows="6"
+      placeholder="നിങ്ങളുടെ പരാതി അല്ലെങ്കിൽ അപേക്ഷ ഇവിടെ എഴുതുക"></textarea>
+
+    <button class="button" onclick="submitComplaint()">
+      📤 പരാതി സമർപ്പിക്കുക
+    </button>
+
+    <button class="button" onclick="sendComplaintWhatsApp()">
+      💬 WhatsApp വഴി അയയ്ക്കുക
+    </button>
+  </div>
+
+  <button class="back" onclick="hideSections()">← തിരികെ</button>
+</section>
+
+  <section id="workers" class="section">
+    <h2>👥 പ്രവർത്തകർ</h2>
+
+    <div class="info">
+      <strong>പ്രധാന പ്രവർത്തകൻ</strong>
+      <p>പേര് ഇവിടെ ചേർക്കാം.</p>
+    </div>
+
+    <div class="info">
+      <strong>പ്രവർത്തകർ</strong>
+      <p>മറ്റുള്ളവരുടെ പേരുകളും വിവരങ്ങളും ഇവിടെ ചേർക്കാം.</p>
+    </div>
+
+    <button class="back" onclick="hideSections()">← തിരികെ</button>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>📞 ബന്ധപ്പെടുക</h2>
+
+    <div class="info">
+      <strong>ഫോൺ</strong>
+      <p>+91 99999 99999</p>
+      <a class="button" href="tel:+919999999999">
+        📞 ഇപ്പോൾ വിളിക്കുക
+      </a>
+    </div>
+
+    <div class="info">
+      <strong>സ്ഥലം</strong>
+      <p>കുമാരപുരം</p>
+    </div>
+
+    <button class="back" onclick="hideSections()">← തിരികെ</button>
+  </section>
+
+  <section id="about" class="section">
+    <h2>ℹ️ ഞങ്ങളെക്കുറിച്ച്</h2>
+
+    <p>
+      കുമാരപുരം പഞ്ചായത്തിലെ ജനങ്ങളുമായി കൂടുതൽ
+      എളുപ്പത്തിൽ ബന്ധപ്പെടുന്നതിനും ആവശ്യമായ വിവരങ്ങൾ
+      പങ്കുവയ്ക്കുന്നതിനുമായി തയ്യാറാക്കിയ ഈ പ്ലാറ്റ്ഫോമിലേക്ക്
+      സ്വാഗതം.
+    </p>
+
+    <button class="back" onclick="hideSections()">← തിരികെ</button>
+  </section>
+
+</main>
+
+<footer class="footer">
+  © 2026 Unmesh Kumarapuram
+</footer>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDiXSTbtYVQAxQjDy9eViF-RYLkwth9ozE",
+  authDomain: "unmesh-kumarapuram.firebaseapp.com",
+  projectId: "unmesh-kumarapuram",
+  storageBucket: "unmesh-kumarapuram.firebasestorage.app",
+  messagingSenderId: "520132886108",
+  appId: "1:520132886108:web:ebefdf0ed7069f42b33099",
+  measurementId: "G-ZGF54ZTN4F"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+
+// ADMIN LOGIN
+window.adminLogin = async function(){
+
+  const email =
+    document.getElementById("adminEmail").value.trim();
+
+  const password =
+    document.getElementById("adminPassword").value;
+
+  if(!email || !password){
+    alert("Emailയും Passwordയും നൽകുക.");
+    return;
+  }
+
+  try {
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    alert("Admin Login വിജയിച്ചു ✅");
+
+    hideSections();
+    displayNotices();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("Login പരാജയപ്പെട്ടു. Email അല്ലെങ്കിൽ Password പരിശോധിക്കുക.");
+
+  }
+
+};
+
+
+// LOGOUT
+window.adminLogout = async function(){
+
+  await signOut(auth);
+
+  alert("Logout ചെയ്തു ✅");
+
+  displayNotices();
+
+};
+
+
+// ADD NOTICE
+window.addNotice = async function(){
+
+  if(!auth.currentUser){
+
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+
+    return;
+  }
+
+  let title = prompt("അറിയിപ്പിന്റെ തലക്കെട്ട്:");
+
+  if(!title) return;
+
+  let message = prompt("അറിയിപ്പിന്റെ വിശദാംശങ്ങൾ:");
+
+  if(!message) return;
+
+  try {
+
+    await addDoc(
+      collection(db, "notifications"),
+      {
+        title: title,
+        message: message,
+        createdAt: new Date()
+      }
+    );
+
+    alert("അറിയിപ്പ് വിജയകരമായി ചേർത്തു ✅");
+
+    displayNotices();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("അറിയിപ്പ് ചേർക്കാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+
+// SHOW NOTICES
+async function displayNotices(){
+
+  const box =
+    document.getElementById("noticeList");
+
+  if(!box) return;
+
+  box.innerHTML =
+    "അറിയിപ്പുകൾ ലോഡ് ചെയ്യുന്നു...";
+
+  try {
+
+    const querySnapshot =
+      await getDocs(
+        collection(db, "notifications")
+      );
+
+    box.innerHTML = "";
+
+    querySnapshot.forEach(function(document){
+
+      const notice = document.data();
+
+      const id = document.id;
+
+      let buttons = "";
+
+      if(auth.currentUser){
+
+        buttons =
+          '<button class="button" onclick="editNotice(\'' +
+          id +
+          '\')">✏️ Edit</button> ' +
+
+          '<button class="button" onclick="deleteNotice(\'' +
+          id +
+          '\')">🗑️ Delete</button>';
+
+      }
+
+      box.innerHTML +=
+
+        '<div class="info">' +
+
+        '<strong>' +
+        notice.title +
+        '</strong>' +
+
+        '<p>' +
+        (notice.message || "") +
+        '</p>' +
+
+        buttons +
+
+        '</div>';
+
+    });
+
+    if(box.innerHTML === ""){
+
+      box.innerHTML =
+        '<div class="info">ഇപ്പോൾ പുതിയ അറിയിപ്പുകളില്ല.</div>';
+
+    }
+
+  } catch(error) {
+
+    console.error(error);
+
+    box.innerHTML =
+      '<div class="info">അറിയിപ്പുകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.</div>';
+
+  }
+
+}
+
+
+// EDIT
+window.editNotice = async function(id){
+
+  if(!auth.currentUser){
+
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+
+    return;
+  }
+
+  try {
+
+    const querySnapshot =
+      await getDocs(
+        collection(db, "notifications")
+      );
+
+    let oldTitle = "";
+    let oldMessage = "";
+
+    querySnapshot.forEach(function(document){
+
+      if(document.id === id){
+
+        const data = document.data();
+
+        oldTitle = data.title || "";
+        oldMessage = data.message || "";
+
+      }
+
+    });
+
+    let newTitle =
+      prompt("പുതിയ തലക്കെട്ട്:", oldTitle);
+
+    if(!newTitle) return;
+
+    let newMessage =
+      prompt("പുതിയ വിശദാംശങ്ങൾ:", oldMessage);
+
+    if(!newMessage) return;
+
+    await updateDoc(
+      doc(db, "notifications", id),
+      {
+        title: newTitle,
+        message: newMessage
+      }
+    );
+
+    alert("അറിയിപ്പ് മാറ്റി ✅");
+
+    displayNotices();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("അറിയിപ്പ് മാറ്റാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+
+// DELETE
+window.deleteNotice = async function(id){
+
+  if(!auth.currentUser){
+
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+
+    return;
+  }
+
+  if(!confirm("ഈ അറിയിപ്പ് Delete ചെയ്യണോ?")) return;
+
+  try {
+
+    await deleteDoc(
+      doc(db, "notifications", id)
+    );
+
+    alert("അറിയിപ്പ് Delete ചെയ്തു ✅");
+
+    displayNotices();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("അറിയിപ്പ് Delete ചെയ്യാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+
+// SHOW SECTION
+window.showSection = function(id){
+
+  document.querySelectorAll('.section')
+    .forEach(function(section){
+
+      section.classList.remove('active');
+
+    });
+
+  document.getElementById(id)
+    .classList.add('active');
+
+  document.getElementById(id)
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
+};
+
+
+// HIDE SECTION
+window.hideSections = function(){
+
+  document.querySelectorAll('.section')
+    .forEach(function(section){
+
+      section.classList.remove('active');
+
+    });
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+};
+
+// SHOW EVENTS
+async function displayEvents(){
+
+  const box = document.getElementById("eventList");
+
+  if(!box) return;
+
+  box.innerHTML = "പരിപാടികൾ ലോഡ് ചെയ്യുന്നു...";
+
+  try {
+
+    const querySnapshot =
+      await getDocs(collection(db, "events"));
+
+    box.innerHTML = "";
+
+    querySnapshot.forEach(function(document){
+
+      const event = document.data();
+      const id = document.id;
+
+      let buttons = "";
+
+      if(auth.currentUser){
+
+        buttons =
+          '<button class="button" onclick="editEvent(\'' +
+          id +
+          '\')">✏️ Edit</button> ' +
+
+          '<button class="button" onclick="deleteEvent(\'' +
+          id +
+          '\')">🗑️ Delete</button>';
+
+      }
+
+      box.innerHTML +=
+        '<div class="info">' +
+
+        '<strong>' +
+        (event.title || "") +
+        '</strong>' +
+
+        '<p>📅 ' +
+        (event.date || "") +
+        '</p>' +
+
+        '<p>⏰ ' +
+        (event.time || "") +
+        '</p>' +
+
+        '<p>📍 ' +
+        (event.place || "") +
+        '</p>' +
+
+        buttons +
+
+        '</div>';
+
+    });
+
+    if(box.innerHTML === ""){
+
+      box.innerHTML =
+        '<div class="info">ഇപ്പോൾ പരിപാടികളില്ല.</div>';
+
+    }
+
+  } catch(error) {
+
+    console.error(error);
+
+    box.innerHTML =
+      '<div class="info">പരിപാടികൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.</div>';
+
+  }
+
+}
+
+
+// ADD EVENT
+window.addEvent = async function(){
+
+  if(!auth.currentUser){
+
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+
+    return;
+  }
+
+  const title = prompt("പരിപാടിയുടെ പേര്:");
+  if(!title) return;
+
+  const date = prompt("തീയതി:");
+  if(!date) return;
+
+  const time = prompt("സമയം:");
+  if(!time) return;
+
+  const place = prompt("സ്ഥലം:");
+  if(!place) return;
+
+  try {
+
+    await addDoc(
+      collection(db, "events"),
+      {
+        title: title,
+        date: date,
+        time: time,
+        place: place
+      }
+    );
+
+    alert("പരിപാടി വിജയകരമായി ചേർത്തു ✅");
+
+    displayEvents();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("പരിപാടി ചേർക്കാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+
+// EDIT EVENT
+window.editEvent = async function(id){
+
+  if(!auth.currentUser){
+
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+
+    return;
+  }
+
+  try {
+
+    const eventDoc =
+      await getDocs(collection(db, "events"));
+
+    let oldTitle = "";
+    let oldDate = "";
+    let oldTime = "";
+    let oldPlace = "";
+
+    eventDoc.forEach(function(document){
+
+      if(document.id === id){
+
+        const data = document.data();
+
+        oldTitle = data.title || "";
+        oldDate = data.date || "";
+        oldTime = data.time || "";
+        oldPlace = data.place || "";
+
+      }
+
+    });
+
+    const newTitle =
+      prompt("പരിപാടിയുടെ പേര്:", oldTitle);
+
+    if(!newTitle) return;
+
+    const newDate =
+      prompt("തീയതി:", oldDate);
+
+    if(!newDate) return;
+
+    const newTime =
+      prompt("സമയം:", oldTime);
+
+    if(!newTime) return;
+
+    const newPlace =
+      prompt("സ്ഥലം:", oldPlace);
+
+    if(!newPlace) return;
+
+    await updateDoc(
+      doc(db, "events", id),
+      {
+        title: newTitle,
+        date: newDate,
+        time: newTime,
+        place: newPlace
+      }
+    );
+
+    alert("പരിപാടി മാറ്റി ✅");
+
+    displayEvents();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("പരിപാടി മാറ്റാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+
+// DELETE EVENT
+window.deleteEvent = async function(id){
+
+  if(!auth.currentUser){
+
+    alert("ആദ്യം Admin Login ചെയ്യുക.");
+
+    return;
+  }
+
+  if(!confirm("ഈ പരിപാടി Delete ചെയ്യണോ?")) return;
+
+  try {
+
+    await deleteDoc(
+      doc(db, "events", id)
+    );
+
+    alert("പരിപാടി Delete ചെയ്തു ✅");
+
+    displayEvents();
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("പരിപാടി Delete ചെയ്യാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+// AUTH STATUS
+onAuthStateChanged(auth, function(user){
+
+  displayNotices();
+
+  const eventButtons =
+    document.getElementById("adminEventButtons");
+
+  if(eventButtons){
+
+    if(user){
+
+      eventButtons.style.display = "block";
+
+    } else {
+
+      eventButtons.style.display = "none";
+
+    }
+
+  }
+
+});
+
+
+window.addEventListener("load", function(){
+
+  displayNotices();
+  displayEvents();
+
+});
+// COMPLAINT SUBMIT
+window.submitComplaint = async function(){
+
+  const name =
+    document.getElementById("complaintName").value.trim();
+
+  const phone =
+    document.getElementById("complaintPhone").value.trim();
+
+  const message =
+    document.getElementById("complaintMessage").value.trim();
+
+  if(!name || !phone || !message){
+
+    alert("പേര്, മൊബൈൽ നമ്പർ, പരാതി എന്നിവ പൂരിപ്പിക്കുക.");
+
+    return;
+  }
+
+  try {
+
+    const complaintId = "CMP-" + Date.now();
+
+    await addDoc(
+      collection(db, "complaints"),
+      {
+        complaintId: complaintId,
+        name: name,
+        phone: phone,
+        message: message,
+        status: "പരിശോധനയിൽ",
+        feedback: "",
+        createdAt: new Date()
+      }
+    );
+
+    alert(
+      "പരാതി വിജയകരമായി സമർപ്പിച്ചു ✅\n\n" +
+      "Complaint ID: " + complaintId
+    );
+
+    document.getElementById("complaintName").value = "";
+    document.getElementById("complaintPhone").value = "";
+    document.getElementById("complaintMessage").value = "";
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert("പരാതി സമർപ്പിക്കാൻ കഴിഞ്ഞില്ല.");
+
+  }
+
+};
+
+
+// WHATSAPP
+window.sendComplaintWhatsApp = function(){
+
+  const name =
+    document.getElementById("complaintName").value.trim();
+
+  const phone =
+    document.getElementById("complaintPhone").value.trim();
+
+  const message =
+    document.getElementById("complaintMessage").value.trim();
+
+  if(!name || !phone || !message){
+
+    alert("ആദ്യം പേര്, മൊബൈൽ നമ്പർ, പരാതി എന്നിവ പൂരിപ്പിക്കുക.");
+
+    return;
+  }
+
+  const whatsappNumber = "919999999999";
+
+  const text =
+    "📝 പരാതി / അപേക്ഷ\n\n" +
+    "👤 പേര്: " + name + "\n" +
+    "📱 മൊബൈൽ: " + phone + "\n\n" +
+    "📋 പരാതി:\n" + message;
+
+  const url =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(text);
+
+  window.location.href = url;
+
+};
+
+</script>
+
+</body>
+</html>
