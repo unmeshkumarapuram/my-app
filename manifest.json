@@ -1,10 +1,10 @@
 {
   "name": "Unmesh Kumarapuram",
-  "short_name": "Kumarapuram",
+  "short_name": "Unmesh",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#075e54",
+  "theme_color": "#00695c",
   "icons": [
     {
       "src": "logo.png",
